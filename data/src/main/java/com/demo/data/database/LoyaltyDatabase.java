@@ -11,6 +11,7 @@ import androidx.room.RoomDatabase;
 
 @Database(entities = {User.class}, version = 1)
 public abstract class LoyaltyDatabase extends RoomDatabase {
+
     public static LoyaltyDatabase getInstance(Context context) {
         return (LoyaltyDatabase) Room.databaseBuilder(context,
                 LoyaltyDatabase.class, "loyalty_db").build();
