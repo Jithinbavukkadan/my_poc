@@ -41,6 +41,11 @@ public interface LandingMvpContract {
     }
 
     interface Presenter {
+
+        void register();
+
+        void unregister();
+
         void onUserInfoSuccessEvent(UserInfoSuccessEvent event);
 
         void onUserInfoFailuresEvent(UserInfoFailureEvent event);

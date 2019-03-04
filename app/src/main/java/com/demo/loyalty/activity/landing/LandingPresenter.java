@@ -5,23 +5,38 @@ import com.demo.data.events.TransactionsSuccessEvent;
 import com.demo.data.events.UserInfoFailureEvent;
 import com.demo.data.events.UserInfoSuccessEvent;
 import com.demo.data.repo.PreferenceRepo;
+import com.demo.loyalty.modules.EventBusModule;
 import com.demo.loyalty.modules.PreferenceRepositoryModule;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 public class LandingPresenter implements LandingMvpContract.Presenter {
-    LandingMvpContract.Model mModel;
-    LandingMvpContract.View mView;
-    PreferenceRepo mPreferenceRepo;
+    private LandingMvpContract.Model mModel;
+    private LandingMvpContract.View mView;
+    private PreferenceRepo mPreferenceRepo;
+    private EventBus mEventBus;
 
     public LandingPresenter(LandingMvpContract.View view) {
-        this(new LandingModel(), view, PreferenceRepositoryModule.preferenceRepo());
+        this(new LandingModel(), view, PreferenceRepositoryModule.preferenceRepo(), EventBusModule.eventBus());
     }
 
-    private LandingPresenter(LandingMvpContract.Model model, LandingMvpContract.View view, PreferenceRepo preferenceRepo) {
+    private LandingPresenter(LandingMvpContract.Model model, LandingMvpContract.View view, PreferenceRepo preferenceRepo,
+            EventBus eventBus) {
         mModel = model;
         mView = view;
         mPreferenceRepo = preferenceRepo;
+        mEventBus = eventBus;
+    }
+    
+    @Override
+    public void register() {
+        mEventBus.register(this);
+    }
+
+    @Override
+    public void unregister() {
+        mEventBus.unregister(this);
     }
 
     @Override
