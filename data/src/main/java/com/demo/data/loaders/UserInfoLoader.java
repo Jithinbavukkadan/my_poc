@@ -4,12 +4,11 @@ import com.demo.data.R;
 import com.demo.data.api.ApiCallback;
 import com.demo.data.api.ApiError;
 import com.demo.data.api.NetworkManager;
-import com.demo.data.events.RegisterFailureEvent;
-import com.demo.data.events.RegistrationSuccessEvent;
-import com.demo.data.events.TransactionsFailureEvent;
-import com.demo.data.events.TransactionsSuccessEvent;
+import com.demo.data.events.RedeemFailureEvent;
+import com.demo.data.events.RedeemSuccessEvent;
+import com.demo.data.events.UserInfoFailureEvent;
+import com.demo.data.events.UserInfoSuccessEvent;
 import com.demo.data.model.server.ServerRegistrationEntity;
-import com.demo.data.model.server.ServerTransactionsResponse;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -17,12 +16,12 @@ import android.content.res.Resources;
 
 import androidx.annotation.NonNull;
 
-public class TransactionsLoader implements LoyaltyLoader<String>, ApiCallback<ServerTransactionsResponse> {
+public class UserInfoLoader  implements LoyaltyLoader<String>, ApiCallback<ServerRegistrationEntity> {
     private final NetworkManager mNetworkManager;
     private final EventBus mEventBus;
     private final Resources mRes;
 
-    public TransactionsLoader(NetworkManager networkManager, EventBus eventBus, Resources res) {
+    public UserInfoLoader(NetworkManager networkManager, EventBus eventBus, Resources res) {
         mNetworkManager = networkManager;
         mEventBus = eventBus;
         mRes = res;
@@ -30,18 +29,17 @@ public class TransactionsLoader implements LoyaltyLoader<String>, ApiCallback<Se
 
     @Override
     public void requestData(String employeeId) {
-        mNetworkManager.getTransactions(employeeId, this);
+        mNetworkManager.getUserDetails(employeeId, this);
     }
 
-
     @Override
-    public void onSuccess(@NonNull ServerTransactionsResponse successType) {
-        mEventBus.post(new TransactionsSuccessEvent(successType));
+    public void onSuccess(@NonNull ServerRegistrationEntity successType) {
+        mEventBus.post(new UserInfoSuccessEvent(successType));
     }
 
     @Override
     public void onError(@NonNull ApiError apiError) {
-        mEventBus.post(new TransactionsFailureEvent(apiError));
+        mEventBus.post(new UserInfoFailureEvent(apiError));
     }
 
     @Override
@@ -60,5 +58,4 @@ public class TransactionsLoader implements LoyaltyLoader<String>, ApiCallback<Se
                 .message(mRes.getString(R.string.global_network_error))
                 .build());
     }
-
 }
