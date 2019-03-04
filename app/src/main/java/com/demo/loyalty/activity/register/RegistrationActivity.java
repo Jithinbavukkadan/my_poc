@@ -48,6 +48,8 @@ public class RegistrationActivity extends AppCompatActivity implements RegisterM
         this(EventBusModule.eventBus());
     }
 
+    private RegisterMvpContract.Presenter mPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,7 @@ public class RegistrationActivity extends AppCompatActivity implements RegisterM
         ButterKnife.bind(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mPresenter = new RegistrationPresenter(this, null);
     }
 /*
     @Override

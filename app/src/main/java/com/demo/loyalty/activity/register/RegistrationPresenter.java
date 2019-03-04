@@ -9,8 +9,9 @@ public class RegistrationPresenter implements RegisterMvpContract.Presenter {
     private RegisterMvpContract.View view;
     private RegisterMvpContract.Model model;
 
-    public RegistrationPresenter(RegisterMvpContract.View view) {
+    public RegistrationPresenter(RegisterMvpContract.View view, RegisterMvpContract.Model model) {
         this.view = view;
+        this.model = model;
     }
 
     @Override
