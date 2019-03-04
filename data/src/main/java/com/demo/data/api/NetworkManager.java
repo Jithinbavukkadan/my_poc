@@ -1,8 +1,10 @@
 package com.demo.data.api;
 
 import com.demo.data.model.request.RegistrationRequest;
+import com.demo.data.model.server.TransactionSingleEntity;
 import com.demo.data.model.server.UserDetails;
-import com.demo.data.model.server.TransactionsResponse;
+
+import java.util.List;
 
 public interface NetworkManager {
 
@@ -14,6 +16,6 @@ public interface NetworkManager {
 
     public void getUserDetails(String userId, ApiCallback<UserDetails> apiCallback);
 
-    public void getTransactions(String userId, ApiCallback<TransactionsResponse> apiCallback);
+    public void getTransactions(String userId, ApiCallback<List<TransactionSingleEntity>> apiCallback);
 
 }

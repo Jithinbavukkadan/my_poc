@@ -28,7 +28,7 @@ public class LandingPresenter implements LandingMvpContract.Presenter {
         mPreferenceRepo = preferenceRepo;
         mEventBus = eventBus;
     }
-    
+
     @Override
     public void register() {
         mEventBus.register(this);
@@ -39,26 +39,26 @@ public class LandingPresenter implements LandingMvpContract.Presenter {
         mEventBus.unregister(this);
     }
 
-    @Override
     @Subscribe
+    @Override
     public void onUserInfoSuccessEvent(UserInfoSuccessEvent event) {
         mView.updateUserDetails(event.getEntity());
     }
 
-    @Override
     @Subscribe
+    @Override
     public void onUserInfoFailuresEvent(UserInfoFailureEvent event) {
         mView.showError(event.getApiError());
     }
 
-    @Override
     @Subscribe
+    @Override
     public void onTransactionsSuccessEvent(TransactionsSuccessEvent event) {
-        mView.updateTransactions(event.getResponse().getEntities());
+        mView.updateTransactions(event.getResponse());
     }
 
-    @Override
     @Subscribe
+    @Override
     public void onTransactionsFailuresEvent(TransactionsFailureEvent event) {
         mView.showError(event.getApiError());
     }

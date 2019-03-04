@@ -63,14 +63,14 @@ public class LandingActivity extends CustomFontActivity
         initializeView();
 
         mPresenter = new LandingPresenter(this);
-        mPresenter.loadUserInfo();
-        mPresenter.loadTransactions();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         mPresenter.register();
+        mPresenter.loadUserInfo();
+        mPresenter.loadTransactions();
     }
 
     @Override

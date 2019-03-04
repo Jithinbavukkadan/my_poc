@@ -1,11 +1,14 @@
 package com.demo.data.api;
 
 import com.demo.data.model.request.RegistrationRequest;
+import com.demo.data.model.server.TransactionSingleEntity;
 import com.demo.data.model.server.UserDetails;
-import com.demo.data.model.server.TransactionsResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -27,10 +30,10 @@ public interface ApiService {
     Call<UserDetails> collect(@Path("employee_id") String employeeId);
 
     @Headers({ACCEPT_JSON})
-    @PUT("user/{employee_id}")
+    @GET("user/{employee_id}")
     Call<UserDetails> userInfo(@Path("employee_id") String employeeId);
 
     @Headers({ACCEPT_JSON})
-    @PUT("user/transaction/{employee_id}")
-    Call<TransactionsResponse> transactions(@Path("employee_id") String employeeId);
+    @GET("user/transaction/{employee_id}")
+    Call<List<TransactionSingleEntity>> transactions(@Path("employee_id") String employeeId);
 }

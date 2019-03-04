@@ -27,7 +27,7 @@ public class PreferenceRepoImpl implements PreferenceRepo {
 
     @Override
     public void setTotalPoints(int totPoints) {
-        mContext.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE).edit().putLong(PREF_TOTAL_POINTS, totPoints).apply();
+        mContext.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE).edit().putInt(PREF_TOTAL_POINTS, totPoints).apply();
     }
 
     @Override

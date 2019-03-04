@@ -1,15 +1,17 @@
 package com.demo.data.events;
 
-import com.demo.data.model.server.TransactionsResponse;
+import com.demo.data.model.server.TransactionSingleEntity;
+
+import java.util.List;
 
 public class TransactionsSuccessEvent {
-    private final TransactionsResponse mResponse;
+    private final List<TransactionSingleEntity> mResponse;
 
-    public TransactionsSuccessEvent(TransactionsResponse response) {
+    public TransactionsSuccessEvent(List<TransactionSingleEntity> response) {
         mResponse = response;
     }
 
-    public TransactionsResponse getResponse() {
+    public List<TransactionSingleEntity> getResponse() {
         return mResponse;
     }
 }
