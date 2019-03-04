@@ -14,4 +14,20 @@ public class ServerRegistrationEntity {
 
     @SerializedName("points")
     private String mPoints;
+
+    public String getEmployeeid() {
+        return mEmployeeid;
+    }
+
+    public String getNickname() {
+        return mNickname;
+    }
+
+    public String getEmailaddress() {
+        return mEmailaddress;
+    }
+
+    public String getPoints() {
+        return mPoints;
+    }
 }

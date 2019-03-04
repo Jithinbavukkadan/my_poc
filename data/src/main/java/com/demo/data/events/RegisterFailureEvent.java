@@ -8,4 +8,8 @@ public class RegisterFailureEvent {
     public RegisterFailureEvent(ApiError apiError) {
         mApiError = apiError;
     }
+
+    public ApiError getApiError() {
+        return mApiError;
+    }
 }

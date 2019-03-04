@@ -8,4 +8,8 @@ public class RegistrationSuccessEvent {
     public RegistrationSuccessEvent(ServerRegistrationEntity entity) {
         mEntity = entity;
     }
+
+    public ServerRegistrationEntity getEntity() {
+        return mEntity;
+    }
 }
