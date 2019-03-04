@@ -1,7 +1,11 @@
-package com.demo.loyalty;
+package com.demo.loyalty.activity.register;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.demo.data.api.ApiError;
+import com.demo.loyalty.LandingActivity;
+import com.demo.loyalty.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -24,7 +28,7 @@ import butterknife.OnClick;
 import android.util.Log;
 import android.view.View;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity implements RegisterMvpContract.View {
     @BindView(R.id.nickname)
     public TextInputEditText mNickName;
 
@@ -52,7 +56,7 @@ public class RegistrationActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
-
+/*
     @Override
     protected void onStart() {
         super.onStart();
@@ -63,7 +67,7 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         mEventBus.unregister(this);
-    }
+    }*/
 
     @OnClick(R.id.signup_btn)
     public void register() {
@@ -71,7 +75,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 new RegistrationRequest(mEmail.getText().toString().trim(), mEmployeeId.getText().toString().trim(),
                         mNickName.getText().toString().trim()));
     }
-
+/*
     @Subscribe
     public void onEvent(RegistrationSuccessEvent event) {
         Log.d("RegisterSuccessEvent", "<>" + event.getEntity().getPoints());
@@ -80,6 +84,30 @@ public class RegistrationActivity extends AppCompatActivity {
     @Subscribe
     public void onEvent(RegisterFailureEvent event) {
         Log.d("RegisterFailEvent", event.getApiError().getMessage());
+    }*/
+
+    @Override
+    public void showError(ApiError error) {
+
     }
 
+    @Override
+    public String getEmail() {
+        return mEmail.getText().toString().trim();
+    }
+
+    @Override
+    public String getNickName() {
+        return mNickName.getText().toString().trim();
+    }
+
+    @Override
+    public String getEmployeeNumber() {
+        return mEmployeeId.getText().toString().trim();
+    }
+
+    @Override
+    public void navigateToHomeScreen() {
+        startActivity(new Intent(this, LandingActivity.class));
+    }
 }

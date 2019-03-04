@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.demo.loyalty.activity.register.RegistrationActivity;
+
 public class LaunchActivity extends AppCompatActivity {
 
     @Override
