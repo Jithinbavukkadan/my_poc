@@ -9,4 +9,5 @@
     <color name="yellow_01">#FDC234</color>
     <color name="lightblue_a_200">#80d8ff</color>
     <color name="actionbar_opacity">#33000000</color>
+    <color name="btn_pressed">#4480d8ff</color>
 </resources>

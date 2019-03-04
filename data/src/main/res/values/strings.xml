@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">data</string>
+    <string name="global_network_error">Sorry, there was a network problem. Please try again.</string>
 </resources>

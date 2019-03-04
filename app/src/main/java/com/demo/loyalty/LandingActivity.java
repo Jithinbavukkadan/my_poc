@@ -1,35 +1,27 @@
 package com.demo.loyalty;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.view.View;
-
 import com.google.android.material.navigation.NavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
 
 import com.demo.loyalty.view.HeaderView;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-import android.view.Menu;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class LandingActivity extends CustomFontActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -131,4 +123,6 @@ public class LandingActivity extends CustomFontActivity
         integrator.setOrientationLocked(true);
         integrator.initiateScan();
     }
+
+
 }
