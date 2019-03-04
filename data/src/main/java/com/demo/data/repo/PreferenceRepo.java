@@ -6,13 +6,13 @@ public interface PreferenceRepo {
     String PREF_NICK_NAME="pref_nick_name";
     String PREF_EMPLOYEE_ID="pref_employee_id";
 
-    Long getTotalPoints();
+    int getTotalPoints();
 
     String getNickName();
 
     String getEmployeeId();
 
-    void setTotalPoints(Long totPoints);
+    void setTotalPoints(int totPoints);
 
     void setNickName(String nickName);
 

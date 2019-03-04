@@ -1,8 +1,15 @@
-package com.demo.loyalty;
+package com.demo.loyalty.activity.landing;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
 
+import com.demo.data.api.ApiError;
+import com.demo.data.model.server.UserDetails;
+import com.demo.data.model.server.TransactionSingleEntity;
+import com.demo.loyalty.BarcodeCaptureActivity;
+import com.demo.loyalty.CustomFontActivity;
+import com.demo.loyalty.R;
+import com.demo.loyalty.TransactionAdapter;
 import com.demo.loyalty.view.HeaderView;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 
@@ -10,6 +17,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,34 +32,32 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LandingActivity extends CustomFontActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
+        implements NavigationView.OnNavigationItemSelectedListener, LandingMvpContract.View {
     public static final int REQUEST_CAMERA_PERMISSION = 101;
-
     private HeaderView mHeaderView;
+    private TransactionAdapter mTransactionAdapter;
+    private LandingMvpContract.Presenter mPresenter;
 
     @BindView(R.id.landing_listview)
     ObservableListView mTransactionsList;
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
 
+        setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        initializeNavigationDrawer();
+        initializeView();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        ButterKnife.bind(this);
-        init();
+        mPresenter.loadUserInfo();
+        mPresenter.loadTransactions();
     }
 
     @Override
@@ -68,7 +74,7 @@ public class LandingActivity extends CustomFontActivity
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                goToScanActivity();
+                navigateToCollectOrRedeem();
             }
         }
     }
@@ -85,12 +91,8 @@ public class LandingActivity extends CustomFontActivity
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
             } else {
-                goToScanActivity();
+                navigateToCollectOrRedeem();
             }
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -98,31 +100,62 @@ public class LandingActivity extends CustomFontActivity
         return true;
     }
 
-    private void init() {
+    @Override
+    public void initializeView() {
         mHeaderView = new HeaderView(this);
-        mTransactionsList.setAdapter(new TransactionAdapter(this, getTransactions()));
+        mTransactionAdapter = new TransactionAdapter(this, new ArrayList<TransactionSingleEntity>());
+        mTransactionsList.setAdapter(mTransactionAdapter);
         mTransactionsList.addHeaderView(mHeaderView, null, false);
     }
 
-    private List<String> getTransactions() {
-        List<String> transactions = new ArrayList<String>();
-        transactions.add("1000pts collected from ICIC store");
-        transactions.add("1000pts collected from ICIC store");
-        transactions.add("1000pts collected from ICIC store");
-        transactions.add("1000pts collected from ICIC store");
-        transactions.add("100pts redeemed from ICIC store");
-        transactions.add("100pts redeemed from ICIC store");
-        transactions.add("100pts redeemed from ICIC store");
-        transactions.add("100pts redeemed from ICIC store");
-        return transactions;
+    @Override
+    public void initializeNavigationDrawer() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void goToScanActivity() {
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void updateUserDetails(UserDetails entity) {
+        mHeaderView.setUserDetails(entity);
+    }
+
+    @Override
+    public void showError(ApiError error) {
+        Toast.makeText(this, error.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void updateTransactions(List<TransactionSingleEntity> entities) {
+        mTransactionAdapter.setTransactions(entities);
+        mTransactionAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void navigateToSettings() {
+
+    }
+
+    @Override
+    public void navigateToCollectOrRedeem() {
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setCaptureActivity(BarcodeCaptureActivity.class);
         integrator.setOrientationLocked(true);
         integrator.initiateScan();
     }
-
-
 }

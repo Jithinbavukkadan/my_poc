@@ -2,7 +2,7 @@ package com.demo.data.model.server;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ServerRegistrationEntity {
+public class UserDetails {
     @SerializedName("employeeid")
     private String mEmployeeid;
 

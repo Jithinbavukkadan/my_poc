@@ -7,16 +7,15 @@ import com.demo.data.api.NetworkManager;
 import com.demo.data.events.RegisterFailureEvent;
 import com.demo.data.events.RegistrationSuccessEvent;
 import com.demo.data.model.request.RegistrationRequest;
-import com.demo.data.model.server.ServerRegistrationEntity;
+import com.demo.data.model.server.UserDetails;
 
 import org.greenrobot.eventbus.EventBus;
 
 import android.content.res.Resources;
-import android.text.SpannableString;
 
 import androidx.annotation.NonNull;
 
-public class RegistrationLoader implements LoyaltyLoader<RegistrationRequest>, ApiCallback<ServerRegistrationEntity> {
+public class RegistrationLoader implements LoyaltyLoader<RegistrationRequest>, ApiCallback<UserDetails> {
     private final NetworkManager mNetworkManager;
     private final EventBus mEventBus;
     private final Resources mRes;
@@ -33,7 +32,7 @@ public class RegistrationLoader implements LoyaltyLoader<RegistrationRequest>, A
     }
 
     @Override
-    public void onSuccess(@NonNull ServerRegistrationEntity successType) {
+    public void onSuccess(@NonNull UserDetails successType) {
         mEventBus.post(new RegistrationSuccessEvent(successType));
     }
 

@@ -1,5 +1,7 @@
 package com.demo.loyalty;
 
+import com.demo.data.model.server.TransactionSingleEntity;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,18 +17,18 @@ import butterknife.ButterKnife;
 public class TransactionAdapter extends BaseAdapter {
 
     private final LayoutInflater mLayoutInflater;
-    private List<String> mTransactions;
+    private List<TransactionSingleEntity> mTransactions;
 
-    public TransactionAdapter(Context context, List<String> transactions) {
+    public TransactionAdapter(Context context, List<TransactionSingleEntity> transactions) {
         mTransactions = transactions;
         mLayoutInflater = LayoutInflater.from(context);
     }
 
-    public List<String> getTransactions() {
+    public List<TransactionSingleEntity> getTransactions() {
         return mTransactions;
     }
 
-    public void setTransactions(List<String> transactions) {
+    public void setTransactions(List<TransactionSingleEntity> transactions) {
         mTransactions = transactions;
     }
 
@@ -57,18 +59,18 @@ public class TransactionAdapter extends BaseAdapter {
             holder = new ViewHolder(newView);
             newView.setTag(holder);
         }
-        String details = mTransactions.get(position);
-        holder.mTransactionDetails.setText(details);
+
+        TransactionSingleEntity entity = mTransactions.get(position);
+        String displayText = entity.toString();
+        holder.mTransactionDetails.setText(displayText);
         return newView;
     }
 
     static class ViewHolder {
         @BindView(R.id.transaction_details)
         TextView mTransactionDetails;
-
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
-
     }
 }

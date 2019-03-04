@@ -6,10 +6,7 @@ import com.demo.data.api.ApiError;
 import com.demo.data.api.NetworkManager;
 import com.demo.data.events.CollectFailureEvent;
 import com.demo.data.events.CollectSuccessEvent;
-import com.demo.data.events.RegisterFailureEvent;
-import com.demo.data.events.RegistrationSuccessEvent;
-import com.demo.data.model.request.RegistrationRequest;
-import com.demo.data.model.server.ServerRegistrationEntity;
+import com.demo.data.model.server.UserDetails;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -17,7 +14,7 @@ import android.content.res.Resources;
 
 import androidx.annotation.NonNull;
 
-public class CollectLoader implements LoyaltyLoader<String>, ApiCallback<ServerRegistrationEntity> {
+public class CollectLoader implements LoyaltyLoader<String>, ApiCallback<UserDetails> {
     private final NetworkManager mNetworkManager;
     private final EventBus mEventBus;
     private final Resources mRes;
@@ -34,7 +31,7 @@ public class CollectLoader implements LoyaltyLoader<String>, ApiCallback<ServerR
     }
 
     @Override
-    public void onSuccess(@NonNull ServerRegistrationEntity successType) {
+    public void onSuccess(@NonNull UserDetails successType) {
         mEventBus.post(new CollectSuccessEvent(successType));
     }
 

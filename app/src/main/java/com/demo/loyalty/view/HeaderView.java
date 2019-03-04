@@ -1,6 +1,9 @@
 package com.demo.loyalty.view;
 
+import com.demo.data.model.server.UserDetails;
+import com.demo.data.repo.PreferenceRepo;
 import com.demo.loyalty.R;
+import com.demo.loyalty.modules.PreferenceRepositoryModule;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -18,6 +21,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HeaderView extends FrameLayout {
+
+    private UserDetails mUserDetails;
+    private PreferenceRepo mPreferenceRepo;
+
+    @BindView(R.id.welcome_msg)
+    TextView mWelcomeMessage;
+
     @BindView(R.id.points_tv)
     TextView mPoints;
 
@@ -32,16 +42,28 @@ public class HeaderView extends FrameLayout {
 
     public HeaderView(@androidx.annotation.NonNull Context context,
             @androidx.annotation.Nullable AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
+        this(context, attrs, defStyleAttr, 0, PreferenceRepositoryModule.preferenceRepo());
     }
 
     public HeaderView(@androidx.annotation.NonNull Context context,
             @androidx.annotation.Nullable AttributeSet attrs, int defStyleAttr,
-            int defStyleRes) {
+            int defStyleRes, PreferenceRepo preferenceRepo) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        mPreferenceRepo = preferenceRepo;
         LayoutInflater.from(context).inflate(R.layout.header_view, this);
         ButterKnife.bind(this);
-        countAnimation(0, 1000, mPoints);
+        mWelcomeMessage.setText("Hello " + preferenceRepo.getNickName() + " \nWelcome to iLoyalty");
+        countAnimation(0, preferenceRepo.getTotalPoints(), mPoints);
+    }
+
+    public UserDetails getUserDetails() {
+        return mUserDetails;
+    }
+
+    public void setUserDetails(UserDetails userDetails) {
+        mUserDetails = userDetails;
+        mPoints.setText(mUserDetails.getPoints());
+        countAnimation(mPreferenceRepo.getTotalPoints(), Integer.parseInt(mUserDetails.getPoints()), mPoints);
     }
 
     private void countAnimation(int start, final int end, final TextView view) {

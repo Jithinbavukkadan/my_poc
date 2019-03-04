@@ -2,7 +2,7 @@ package com.demo.data.model.server;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ServerApiErrorResponse {
+public class ApiErrorResponse {
     @SerializedName("status")
     private int mStatus;
 

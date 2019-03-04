@@ -1,5 +1,7 @@
 package com.demo.loyalty;
 
+import com.demo.loyalty.activity.landing.LandingActivity;
+
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

@@ -1,16 +1,15 @@
 package com.demo.data.events;
 
-import com.demo.data.model.server.ServerRegistrationEntity;
-import com.demo.data.model.server.ServerTransactionsResponse;
+import com.demo.data.model.server.UserDetails;
 
 public class UserInfoSuccessEvent {
-    private final ServerRegistrationEntity mEntity;
+    private final UserDetails mEntity;
 
-    public UserInfoSuccessEvent(ServerRegistrationEntity entity) {
+    public UserInfoSuccessEvent(UserDetails entity) {
         mEntity = entity;
     }
 
-    public ServerRegistrationEntity getEntity() {
+    public UserDetails getEntity() {
         return mEntity;
     }
 }

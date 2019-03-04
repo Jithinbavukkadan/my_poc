@@ -4,12 +4,9 @@ import com.demo.data.R;
 import com.demo.data.api.ApiCallback;
 import com.demo.data.api.ApiError;
 import com.demo.data.api.NetworkManager;
-import com.demo.data.events.RegisterFailureEvent;
-import com.demo.data.events.RegistrationSuccessEvent;
 import com.demo.data.events.TransactionsFailureEvent;
 import com.demo.data.events.TransactionsSuccessEvent;
-import com.demo.data.model.server.ServerRegistrationEntity;
-import com.demo.data.model.server.ServerTransactionsResponse;
+import com.demo.data.model.server.TransactionsResponse;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -17,7 +14,7 @@ import android.content.res.Resources;
 
 import androidx.annotation.NonNull;
 
-public class TransactionsLoader implements LoyaltyLoader<String>, ApiCallback<ServerTransactionsResponse> {
+public class TransactionsLoader implements LoyaltyLoader<String>, ApiCallback<TransactionsResponse> {
     private final NetworkManager mNetworkManager;
     private final EventBus mEventBus;
     private final Resources mRes;
@@ -35,7 +32,7 @@ public class TransactionsLoader implements LoyaltyLoader<String>, ApiCallback<Se
 
 
     @Override
-    public void onSuccess(@NonNull ServerTransactionsResponse successType) {
+    public void onSuccess(@NonNull TransactionsResponse successType) {
         mEventBus.post(new TransactionsSuccessEvent(successType));
     }
 

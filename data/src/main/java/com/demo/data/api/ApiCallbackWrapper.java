@@ -2,7 +2,7 @@ package com.demo.data.api;
 
 import com.google.gson.Gson;
 
-import com.demo.data.model.server.ServerApiErrorResponse;
+import com.demo.data.model.server.ApiErrorResponse;
 
 import java.io.IOException;
 
@@ -46,7 +46,7 @@ public class ApiCallbackWrapper<T> implements Callback<T> {
 
     private ApiError convertError(ResponseBody errorBody) {
         Gson gson=new Gson();
-        ServerApiErrorResponse response = gson.fromJson(errorBody.charStream(), ServerApiErrorResponse.class);
+        ApiErrorResponse response = gson.fromJson(errorBody.charStream(), ApiErrorResponse.class);
         return ApiError.newBuilder().message(response.getMessage()).errorCode(response.getStatus()).build();
     }
 }

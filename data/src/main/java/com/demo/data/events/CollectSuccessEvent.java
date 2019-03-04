@@ -1,15 +1,15 @@
 package com.demo.data.events;
 
-import com.demo.data.model.server.ServerRegistrationEntity;
+import com.demo.data.model.server.UserDetails;
 
 public class CollectSuccessEvent {
-    private final ServerRegistrationEntity mEntity;
+    private final UserDetails mEntity;
 
-    public CollectSuccessEvent(ServerRegistrationEntity entity) {
+    public CollectSuccessEvent(UserDetails entity) {
         mEntity = entity;
     }
 
-    public ServerRegistrationEntity getEntity() {
+    public UserDetails getEntity() {
         return mEntity;
     }
 }

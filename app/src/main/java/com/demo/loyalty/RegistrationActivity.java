@@ -1,9 +1,5 @@
 package com.demo.loyalty;
 
-import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import com.demo.data.events.RegisterFailureEvent;
@@ -15,14 +11,14 @@ import com.demo.loyalty.modules.LoaderModule;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import android.util.Log;
-import android.view.View;
 
 public class RegistrationActivity extends AppCompatActivity {
     @BindView(R.id.nickname)

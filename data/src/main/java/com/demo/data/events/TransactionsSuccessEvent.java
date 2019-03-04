@@ -1,15 +1,15 @@
 package com.demo.data.events;
 
-import com.demo.data.model.server.ServerTransactionsResponse;
+import com.demo.data.model.server.TransactionsResponse;
 
 public class TransactionsSuccessEvent {
-    private final ServerTransactionsResponse mResponse;
+    private final TransactionsResponse mResponse;
 
-    public TransactionsSuccessEvent(ServerTransactionsResponse response) {
+    public TransactionsSuccessEvent(TransactionsResponse response) {
         mResponse = response;
     }
 
-    public ServerTransactionsResponse getResponse() {
+    public TransactionsResponse getResponse() {
         return mResponse;
     }
 }
