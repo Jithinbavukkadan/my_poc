@@ -25,13 +25,13 @@ import android.util.Log;
 import android.view.View;
 
 public class RegistrationActivity extends AppCompatActivity {
-    @BindView(R.id.nickname_tv)
+    @BindView(R.id.nickname)
     public TextInputEditText mNickName;
 
-    @BindView(R.id.employeeid_tv)
+    @BindView(R.id.employeeid)
     public TextInputEditText mEmployeeId;
 
-    @BindView(R.id.email_tv)
+    @BindView(R.id.email)
     public TextInputEditText mEmail;
 
     private final EventBus mEventBus;

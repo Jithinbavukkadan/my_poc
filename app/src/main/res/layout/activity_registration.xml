@@ -40,6 +40,7 @@
         app:layout_constraintVertical_chainStyle="packed">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -52,7 +53,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:hint="EmployeeId"
+        android:hint="EmployeeID"
         app:layout_constraintBottom_toTopOf="@+id/nickname_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -60,6 +61,7 @@
         app:layout_constraintTop_toBottomOf="@+id/email_tv">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/employeeid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -80,6 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/employeeid_tv">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

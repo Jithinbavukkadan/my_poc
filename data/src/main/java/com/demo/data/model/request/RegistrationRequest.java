@@ -3,13 +3,13 @@ package com.demo.data.model.request;
 import com.google.gson.annotations.SerializedName;
 
 public class RegistrationRequest {
-    @SerializedName("email")
+    @SerializedName("emailaddress")
     private final String email;
 
-    @SerializedName("employeeId")
+    @SerializedName("employeeid")
     private final String employeeId;
 
-    @SerializedName("nickName")
+    @SerializedName("nickname")
     private final String nickName;
 
     public RegistrationRequest(String email, String employeeId, String nickName) {
