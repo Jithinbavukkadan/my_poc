@@ -3,21 +3,16 @@ package com.demo.loyalty.activity.register;
 import com.google.android.material.textfield.TextInputEditText;
 
 import com.demo.data.api.ApiError;
-import com.demo.data.model.request.RegistrationRequest;
 import com.demo.loyalty.R;
 import com.demo.loyalty.activity.landing.LandingActivity;
-import com.demo.loyalty.modules.EventBusModule;
-import com.demo.loyalty.modules.LoaderModule;
-
-import org.greenrobot.eventbus.EventBus;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -34,6 +29,9 @@ public class RegistrationActivity extends AppCompatActivity implements RegisterM
 
     @BindView(R.id.progress_bar)
     public View mProgressView;
+
+    @BindView(R.id.signup_btn)
+    public Button mSignUpBtn;
 
     private RegisterMvpContract.Presenter mPresenter;
 
@@ -91,15 +89,18 @@ public class RegistrationActivity extends AppCompatActivity implements RegisterM
     @Override
     public void navigateToHomeScreen() {
         startActivity(new Intent(this, LandingActivity.class));
+        finish();
     }
 
     @Override
     public void showLoading() {
+        mSignUpBtn.setEnabled(false);
         mProgressView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
+        mSignUpBtn.setEnabled(true);
         mProgressView.setVisibility(View.GONE);
     }
 }

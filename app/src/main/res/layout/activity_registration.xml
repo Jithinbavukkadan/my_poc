@@ -101,6 +101,7 @@
         android:background="@drawable/global_button_background"
         android:elevation="0dp"
         android:text="Sign Up"
+        android:stateListAnimator="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

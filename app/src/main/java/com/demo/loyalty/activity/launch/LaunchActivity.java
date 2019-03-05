@@ -50,11 +50,13 @@ public class LaunchActivity extends AppCompatActivity implements LaunchScreenMvp
     @Override
     public void navigateRegister() {
         startActivity(new Intent(getApplicationContext(), RegistrationActivity.class));
+        finish();
     }
 
     @Override
     public void navigateHomeScreen() {
         startActivity(new Intent(getApplicationContext(), LandingActivity.class));
+        finish();
     }
 
     @Override
