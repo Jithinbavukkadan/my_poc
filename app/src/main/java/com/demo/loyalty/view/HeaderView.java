@@ -62,7 +62,6 @@ public class HeaderView extends FrameLayout {
 
     public void setUserDetails(UserDetails userDetails) {
         mUserDetails = userDetails;
-        mPoints.setText(mUserDetails.getPoints());
         countAnimation(mPreferenceRepo.getTotalPoints(), Integer.parseInt(mUserDetails.getPoints()), mPoints);
     }
 

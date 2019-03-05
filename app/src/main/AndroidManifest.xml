@@ -19,20 +19,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".activity.landing.LandingActivity"
+        <activity
+            android:name=".activity.landing.LandingActivity"
             android:screenOrientation="portrait"></activity>
 
         <activity
             android:name=".activity.register.RegistrationActivity"
             android:label="@string/title_activity_registration"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize"></activity>
 
         <activity
             android:name=".activity.launch.LaunchActivity"
+            android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
