@@ -20,12 +20,12 @@ public class NetworkManagerImpl implements NetworkManager {
 
     @Override
     public void collect(String userId, ApiCallback<UserDetails> apiCallback) {
-
+        mApiService.collect(userId).enqueue(getApiCallbackWrapper(apiCallback));
     }
 
     @Override
     public void redeem(String userId, ApiCallback<UserDetails> apiCallback) {
-
+        mApiService.redeem(userId).enqueue(getApiCallbackWrapper(apiCallback));
     }
 
     @Override
