@@ -7,6 +7,7 @@ import com.demo.loyalty.modules.PreferenceRepositoryModule;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -20,9 +21,10 @@ import com.demo.loyalty.activity.register.RegistrationActivity;
 
 public class LaunchActivity extends AppCompatActivity implements LaunchScreenMvpContract.View {
 
+    @BindView(R.id.register_btn)
     AppCompatButton registerBtn;
 
-    LaunchScreenMvpContract.Presenter mPresenter;
+    private LaunchScreenMvpContract.Presenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
