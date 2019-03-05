@@ -116,19 +116,16 @@ public class LandingActivity extends CustomFontActivity
                 && scanResult.getContents() != null) {
             String[] bacodeData = mPresenter.processBarcodeData(scanResult.getContents());
             if (bacodeData.length > 1) {
-                String type = bacodeData[0], shopName = bacodeData[1];
-                if (type.equalsIgnoreCase(TransactionSingleEntity.COLLECT)) {
+                final String type = bacodeData[0], shopName = bacodeData[1];
+                if (type.equalsIgnoreCase(TransactionSingleEntity.COLLECT) || type.equalsIgnoreCase(TransactionSingleEntity.REDEEM)) {
                     showConfirmationDialog(type, shopName, new ConfirmationListener() {
                         @Override
                         public void confirm() {
-                            mPresenter.collect(shopName);
-                        }
-                    });
-                } else if (type.equalsIgnoreCase(TransactionSingleEntity.REDEEM)) {
-                    showConfirmationDialog(type, shopName, new ConfirmationListener() {
-                        @Override
-                        public void confirm() {
-                            mPresenter.redeem(shopName);
+                            if (type.equalsIgnoreCase(TransactionSingleEntity.COLLECT)) {
+                                mPresenter.collect(shopName);
+                            } else {
+                                mPresenter.redeem(shopName);
+                            }
                         }
                     });
                 } else {
