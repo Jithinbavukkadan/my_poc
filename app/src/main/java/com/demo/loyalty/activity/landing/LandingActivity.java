@@ -49,6 +49,9 @@ public class LandingActivity extends CustomFontActivity
     private TransactionAdapter mTransactionAdapter;
     private LandingMvpContract.Presenter mPresenter;
 
+    @BindView(R.id.progress_bar)
+    View mProgressView;
+
     @BindView(R.id.landing_listview)
     ObservableListView mTransactionsList;
 
@@ -174,12 +177,12 @@ public class LandingActivity extends CustomFontActivity
 
     @Override
     public void showLoading() {
-
+        mProgressView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
-
+        mProgressView.setVisibility(View.GONE);
     }
 
     @Override

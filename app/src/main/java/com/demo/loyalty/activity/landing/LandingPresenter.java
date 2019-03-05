@@ -8,7 +8,6 @@ import com.demo.data.events.TransactionsFailureEvent;
 import com.demo.data.events.TransactionsSuccessEvent;
 import com.demo.data.events.UserInfoFailureEvent;
 import com.demo.data.events.UserInfoSuccessEvent;
-import com.demo.data.model.server.TransactionSingleEntity;
 import com.demo.data.repo.PreferenceRepo;
 import com.demo.loyalty.modules.EventBusModule;
 import com.demo.loyalty.modules.PreferenceRepositoryModule;
@@ -46,6 +45,35 @@ public class LandingPresenter implements LandingMvpContract.Presenter {
         mEventBus.unregister(this);
     }
 
+    @Override
+    public void loadUserInfo() {
+        mModel.loadUserInfo(mPreferenceRepo.getEmployeeId());
+    }
+
+    @Override
+    public void loadTransactions() {
+        mView.showLoading();
+        mModel.loadTransactions(mPreferenceRepo.getEmployeeId());
+    }
+
+    @Override
+    public void collect(String shopName) {
+        mView.showLoading();
+        mCollectOrRedeemOffer.collect(mPreferenceRepo.getEmployeeId());
+    }
+
+    @Override
+    public void redeem(String shopName) {
+        mView.showLoading();
+        mCollectOrRedeemOffer.redeem(mPreferenceRepo.getEmployeeId());
+    }
+
+    @Override
+    public String[] processBarcodeData(String barcodeData) {
+        String[] data = barcodeData.split(",");
+        return data;
+    }
+
     @Subscribe
     @Override
     public void onUserInfoSuccessEvent(UserInfoSuccessEvent event) {
@@ -61,62 +89,43 @@ public class LandingPresenter implements LandingMvpContract.Presenter {
     @Subscribe
     @Override
     public void onTransactionsSuccessEvent(TransactionsSuccessEvent event) {
+        mView.hideLoading();
         mView.updateTransactions(event.getResponse());
     }
 
     @Subscribe
     @Override
     public void onTransactionsFailuresEvent(TransactionsFailureEvent event) {
+        mView.hideLoading();
         mView.showError(event.getApiError());
     }
 
     @Subscribe
     @Override
     public void onCollectSuccessEvent(CollectSuccessEvent event) {
+        mView.hideLoading();
         this.loadTransactions();
     }
 
     @Subscribe
     @Override
     public void onCollectFailuresEvent(CollectFailureEvent event) {
+        mView.hideLoading();
         mView.showError(event.getApiError());
     }
 
     @Subscribe
     @Override
     public void onRedeemSuccessEvent(RedeemSuccessEvent event) {
+        mView.hideLoading();
         this.loadTransactions();
     }
 
     @Subscribe
     @Override
     public void onRedeemFailuresEvent(RedeemFailureEvent event) {
+        mView.hideLoading();
         mView.showError(event.getApiError());
     }
 
-    @Override
-    public void loadUserInfo() {
-        mModel.loadUserInfo(mPreferenceRepo.getEmployeeId());
-    }
-
-    @Override
-    public void loadTransactions() {
-        mModel.loadTransactions(mPreferenceRepo.getEmployeeId());
-    }
-
-    @Override
-    public void collect(String shopName) {
-        mCollectOrRedeemOffer.collect(mPreferenceRepo.getEmployeeId());
-    }
-
-    @Override
-    public void redeem(String shopName) {
-        mCollectOrRedeemOffer.redeem(mPreferenceRepo.getEmployeeId());
-    }
-
-    @Override
-    public String[] processBarcodeData(String barcodeData) {
-        String[] data = barcodeData.split(",");
-        return data;
-    }
 }
