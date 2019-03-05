@@ -69,6 +69,11 @@ public class RegistrationActivity extends AppCompatActivity implements RegisterM
     }
 
     @Override
+    public void showError(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public String getEmail() {
         return mEmail.getText().toString().trim();
     }

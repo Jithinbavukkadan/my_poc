@@ -12,6 +12,8 @@ public interface RegisterMvpContract {
     interface View {
         void showError(ApiError error);
 
+        void showError(String error);
+
         String getEmail();
 
         String getNickName();
