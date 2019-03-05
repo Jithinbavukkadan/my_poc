@@ -19,6 +19,10 @@ public interface RegisterMvpContract {
         String getEmployeeNumber();
 
         void navigateToHomeScreen();
+
+        void showLoading();
+
+        void hideLoading();
     }
 
     interface Presenter {
@@ -27,5 +31,9 @@ public interface RegisterMvpContract {
         void onRegistrationSuccess(RegistrationSuccessEvent event);
 
         void onRegistrationFailure(RegisterFailureEvent event);
+
+        void register();
+
+        void unregister();
     }
 }
