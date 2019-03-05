@@ -1,6 +1,7 @@
-package com.demo.loyalty;
+package com.demo.loyalty.activity.landing;
 
 import com.demo.data.model.server.TransactionSingleEntity;
+import com.demo.loyalty.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

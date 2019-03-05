@@ -10,8 +10,6 @@ import com.demo.data.model.server.TransactionSingleEntity;
 import com.demo.loyalty.BarcodeCaptureActivity;
 import com.demo.loyalty.CustomFontActivity;
 import com.demo.loyalty.R;
-import com.demo.loyalty.TransactionAdapter;
-import com.demo.loyalty.font.FontFactory;
 import com.demo.loyalty.view.HeaderView;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 
@@ -20,12 +18,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
