@@ -104,6 +104,7 @@ public class LandingPresenter implements LandingMvpContract.Presenter {
     @Override
     public void onCollectSuccessEvent(CollectSuccessEvent event) {
         mView.hideLoading();
+        mView.updateUserDetails(event.getEntity());
         this.loadTransactions();
     }
 
@@ -118,6 +119,7 @@ public class LandingPresenter implements LandingMvpContract.Presenter {
     @Override
     public void onRedeemSuccessEvent(RedeemSuccessEvent event) {
         mView.hideLoading();
+        mView.updateUserDetails(event.getEntity());
         this.loadTransactions();
     }
 
@@ -128,4 +130,9 @@ public class LandingPresenter implements LandingMvpContract.Presenter {
         mView.showError(event.getApiError());
     }
 
+    @Override
+    public void logout() {
+        mPreferenceRepo.reset();
+        mView.navigateToLaunchScreen();
+    }
 }

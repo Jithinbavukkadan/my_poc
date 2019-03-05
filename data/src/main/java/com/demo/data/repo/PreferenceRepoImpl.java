@@ -39,4 +39,9 @@ public class PreferenceRepoImpl implements PreferenceRepo {
     public void setEmployeeId(String employeeId) {
         mContext.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE).edit().putString(PREF_EMPLOYEE_ID, employeeId).apply();
     }
+
+    @Override
+    public void reset() {
+        mContext.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE).edit().clear().commit();
+    }
 }

@@ -10,6 +10,7 @@ import com.demo.data.model.server.TransactionSingleEntity;
 import com.demo.loyalty.BarcodeCaptureActivity;
 import com.demo.loyalty.CustomFontActivity;
 import com.demo.loyalty.R;
+import com.demo.loyalty.activity.launch.LaunchActivity;
 import com.demo.loyalty.view.HeaderView;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 
@@ -145,6 +146,9 @@ public class LandingActivity extends CustomFontActivity
             } else {
                 navigateToCollectOrRedeem();
             }
+
+        } else if (id == R.id.nav_logout) {
+            mPresenter.logout();
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -211,6 +215,12 @@ public class LandingActivity extends CustomFontActivity
         integrator.setCaptureActivity(BarcodeCaptureActivity.class);
         integrator.setOrientationLocked(true);
         integrator.initiateScan();
+    }
+
+    @Override
+    public void navigateToLaunchScreen() {
+        startActivity(new Intent(this, LaunchActivity.class));
+        finish();
     }
 
     @Override

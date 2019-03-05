@@ -40,6 +40,8 @@ public interface LandingMvpContract {
 
         void navigateToCollectOrRedeem();
 
+        void navigateToLaunchScreen();
+
         void initializeNavigationDrawer();
 
         void initializeView();
@@ -53,6 +55,8 @@ public interface LandingMvpContract {
         void register();
 
         void unregister();
+
+        void logout();
 
         void onUserInfoSuccessEvent(UserInfoSuccessEvent event);
 

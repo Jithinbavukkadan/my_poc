@@ -17,4 +17,6 @@ public interface PreferenceRepo {
     void setNickName(String nickName);
 
     void setEmployeeId(String employeeId);
+
+    void reset();
 }
