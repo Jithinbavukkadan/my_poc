@@ -1,9 +1,14 @@
 package com.demo.loyalty.activity.landing;
 
+import com.demo.data.events.CollectFailureEvent;
+import com.demo.data.events.CollectSuccessEvent;
+import com.demo.data.events.RedeemFailureEvent;
+import com.demo.data.events.RedeemSuccessEvent;
 import com.demo.data.events.TransactionsFailureEvent;
 import com.demo.data.events.TransactionsSuccessEvent;
 import com.demo.data.events.UserInfoFailureEvent;
 import com.demo.data.events.UserInfoSuccessEvent;
+import com.demo.data.model.server.TransactionSingleEntity;
 import com.demo.data.repo.PreferenceRepo;
 import com.demo.loyalty.modules.EventBusModule;
 import com.demo.loyalty.modules.PreferenceRepositoryModule;
@@ -13,20 +18,22 @@ import org.greenrobot.eventbus.Subscribe;
 
 public class LandingPresenter implements LandingMvpContract.Presenter {
     private LandingMvpContract.Model mModel;
+    private CollectOrRedeemOffer mCollectOrRedeemOffer;
     private LandingMvpContract.View mView;
     private PreferenceRepo mPreferenceRepo;
     private EventBus mEventBus;
 
     public LandingPresenter(LandingMvpContract.View view) {
-        this(new LandingModel(), view, PreferenceRepositoryModule.preferenceRepo(), EventBusModule.eventBus());
+        this(new LandingModel(), view, PreferenceRepositoryModule.preferenceRepo(), EventBusModule.eventBus(), new CollectOrRedeemOffer());
     }
 
     private LandingPresenter(LandingMvpContract.Model model, LandingMvpContract.View view, PreferenceRepo preferenceRepo,
-            EventBus eventBus) {
+            EventBus eventBus, CollectOrRedeemOffer collectOrRedeemOffer) {
         mModel = model;
         mView = view;
         mPreferenceRepo = preferenceRepo;
         mEventBus = eventBus;
+        mCollectOrRedeemOffer = collectOrRedeemOffer;
     }
 
     @Override
@@ -63,6 +70,30 @@ public class LandingPresenter implements LandingMvpContract.Presenter {
         mView.showError(event.getApiError());
     }
 
+    @Subscribe
+    @Override
+    public void onCollectSuccessEvent(CollectSuccessEvent event) {
+        this.loadTransactions();
+    }
+
+    @Subscribe
+    @Override
+    public void onCollectFailuresEvent(CollectFailureEvent event) {
+        mView.showError(event.getApiError());
+    }
+
+    @Subscribe
+    @Override
+    public void onRedeemSuccessEvent(RedeemSuccessEvent event) {
+        this.loadTransactions();
+    }
+
+    @Subscribe
+    @Override
+    public void onRedeemFailuresEvent(RedeemFailureEvent event) {
+        mView.showError(event.getApiError());
+    }
+
     @Override
     public void loadUserInfo() {
         mModel.loadUserInfo(mPreferenceRepo.getEmployeeId());
@@ -71,5 +102,21 @@ public class LandingPresenter implements LandingMvpContract.Presenter {
     @Override
     public void loadTransactions() {
         mModel.loadTransactions(mPreferenceRepo.getEmployeeId());
+    }
+
+    @Override
+    public void collect(String shopName) {
+        mCollectOrRedeemOffer.collect(mPreferenceRepo.getEmployeeId());
+    }
+
+    @Override
+    public void redeem(String shopName) {
+        mCollectOrRedeemOffer.redeem(mPreferenceRepo.getEmployeeId());
+    }
+
+    @Override
+    public String[] processBarcodeData(String barcodeData) {
+        String[] data = barcodeData.split(",");
+        return data;
     }
 }

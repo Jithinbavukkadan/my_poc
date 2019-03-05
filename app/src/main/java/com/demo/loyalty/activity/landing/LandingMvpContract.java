@@ -1,6 +1,10 @@
 package com.demo.loyalty.activity.landing;
 
 import com.demo.data.api.ApiError;
+import com.demo.data.events.CollectFailureEvent;
+import com.demo.data.events.CollectSuccessEvent;
+import com.demo.data.events.RedeemFailureEvent;
+import com.demo.data.events.RedeemSuccessEvent;
 import com.demo.data.events.TransactionsFailureEvent;
 import com.demo.data.events.TransactionsSuccessEvent;
 import com.demo.data.events.UserInfoFailureEvent;
@@ -28,6 +32,8 @@ public interface LandingMvpContract {
 
         void showError(ApiError error);
 
+        void showError(String error);
+
         void updateTransactions(List<TransactionSingleEntity> entities);
 
         void navigateToSettings();
@@ -37,6 +43,8 @@ public interface LandingMvpContract {
         void initializeNavigationDrawer();
 
         void initializeView();
+
+        void showConfirmationDialog(String type,String shopName,LandingActivity.ConfirmationListener listener);
 
     }
 
@@ -54,10 +62,22 @@ public interface LandingMvpContract {
 
         void onTransactionsFailuresEvent(TransactionsFailureEvent event);
 
+        void onCollectSuccessEvent(CollectSuccessEvent event);
+
+        void onCollectFailuresEvent(CollectFailureEvent event);
+
+        void onRedeemSuccessEvent(RedeemSuccessEvent event);
+
+        void onRedeemFailuresEvent(RedeemFailureEvent event);
+
         void loadUserInfo();
 
         void loadTransactions();
 
+        void collect(String shopName);
 
+        void redeem(String shopName);
+
+        String[] processBarcodeData(String barcodeData);
     }
 }

@@ -2,6 +2,7 @@ package com.demo.loyalty.activity.landing;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import com.demo.data.api.ApiError;
 import com.demo.data.model.server.UserDetails;
@@ -10,19 +11,29 @@ import com.demo.loyalty.BarcodeCaptureActivity;
 import com.demo.loyalty.CustomFontActivity;
 import com.demo.loyalty.R;
 import com.demo.loyalty.TransactionAdapter;
+import com.demo.loyalty.font.FontFactory;
 import com.demo.loyalty.view.HeaderView;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 
 import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -97,6 +108,35 @@ public class LandingActivity extends CustomFontActivity
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (scanResult != null
+                && scanResult.getContents() != null) {
+            String[] bacodeData = mPresenter.processBarcodeData(scanResult.getContents());
+            if (bacodeData.length > 1) {
+                String type = bacodeData[0], shopName = bacodeData[1];
+                if (type.equalsIgnoreCase(TransactionSingleEntity.COLLECT)) {
+                    showConfirmationDialog(type, shopName, new ConfirmationListener() {
+                        @Override
+                        public void confirm() {
+                            mPresenter.collect(shopName);
+                        }
+                    });
+                } else if (type.equalsIgnoreCase(TransactionSingleEntity.REDEEM)) {
+                    showConfirmationDialog(type, shopName, new ConfirmationListener() {
+                        @Override
+                        public void confirm() {
+                            mPresenter.redeem(shopName);
+                        }
+                    });
+                } else {
+                    showError("Invalid barcode");
+                }
+            }
+        }
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -156,6 +196,11 @@ public class LandingActivity extends CustomFontActivity
     }
 
     @Override
+    public void showError(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void updateTransactions(List<TransactionSingleEntity> entities) {
         mTransactionAdapter.setTransactions(entities);
         mTransactionAdapter.notifyDataSetChanged();
@@ -173,4 +218,30 @@ public class LandingActivity extends CustomFontActivity
         integrator.setOrientationLocked(true);
         integrator.initiateScan();
     }
+
+    @Override
+    public void showConfirmationDialog(String type, String shopName, final ConfirmationListener listener) {
+        CharSequence title = type.equals(TransactionSingleEntity.COLLECT) ? "Collect" : "Redeem";
+        CharSequence collect = "Collect", redeem = "Redeem";
+        CharSequence buttonTxt = type.equals(TransactionSingleEntity.COLLECT) ? collect : redeem;
+        CharSequence collectMsg = "Do you want to collect 100pts from " + shopName, redeemMsg = "Do you want to redeem 100pts from "
+                + shopName;
+        CharSequence message = type.equals(TransactionSingleEntity.COLLECT) ? collectMsg : redeemMsg;
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this).setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(buttonTxt, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        listener.confirm();
+                    }
+                })
+                .create();
+        alertDialog.show();
+    }
+
+    interface ConfirmationListener {
+        void confirm();
+    }
+
 }

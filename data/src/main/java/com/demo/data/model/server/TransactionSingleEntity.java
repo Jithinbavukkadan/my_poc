@@ -3,8 +3,8 @@ package com.demo.data.model.server;
 import com.google.gson.annotations.SerializedName;
 
 public class TransactionSingleEntity {
-    private static final String COLLECT = "COLLECT";
-    private static final String REDEEM = "REDEEM";
+    public static final String COLLECT = "COLLECT";
+    public static final String REDEEM = "REDEEM";
 
     @SerializedName("id")
     private String id;

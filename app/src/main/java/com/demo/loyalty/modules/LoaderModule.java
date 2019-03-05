@@ -2,7 +2,9 @@ package com.demo.loyalty.modules;
 
 import com.demo.data.api.NetworkManager;
 import com.demo.data.api.NetworkManagerImpl;
+import com.demo.data.loaders.CollectLoader;
 import com.demo.data.loaders.LoyaltyLoader;
+import com.demo.data.loaders.RedeemLoader;
 import com.demo.data.loaders.RegistrationLoader;
 import com.demo.data.loaders.TransactionsLoader;
 import com.demo.data.loaders.UserInfoLoader;
@@ -20,6 +22,14 @@ public class LoaderModule {
 
     public static LoyaltyLoader<String> transactionsLoader() {
         return new TransactionsLoader(networkManager(), EventBusModule.eventBus(), ApplicationModule.resources());
+    }
+
+    public static LoyaltyLoader<String> collectsLoader() {
+        return new CollectLoader(networkManager(), EventBusModule.eventBus(), ApplicationModule.resources());
+    }
+
+    public static LoyaltyLoader<String> redeeemLoader() {
+        return new RedeemLoader(networkManager(), EventBusModule.eventBus(), ApplicationModule.resources());
     }
 
     public static NetworkManager networkManager() {
