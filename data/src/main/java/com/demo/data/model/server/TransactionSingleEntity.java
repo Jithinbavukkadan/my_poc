@@ -21,6 +21,9 @@ public class TransactionSingleEntity {
     @SerializedName("points")
     private String mPoints;
 
+    @SerializedName("location")
+    private String mLocation;
+
     public String getId() {
         return id;
     }
@@ -41,13 +44,17 @@ public class TransactionSingleEntity {
         return mPoints;
     }
 
+    public String getLocation() {
+        return mLocation;
+    }
+
     @Override
     public String toString() {
         String displayText = "";
         if (getTranstype().equalsIgnoreCase(COLLECT)) {
-            displayText = getPoints() + "pts Collected from ICIC store";
+            displayText = getPoints() + "pts Collected from " + getLocation();
         } else {
-            displayText = getPoints() + "pts Redeemed from ICIC store";
+            displayText = getPoints() + "pts Redeemed from " + getLocation();
         }
         return displayText;
     }

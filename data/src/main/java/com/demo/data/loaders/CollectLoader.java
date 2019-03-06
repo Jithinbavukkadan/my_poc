@@ -6,6 +6,7 @@ import com.demo.data.api.ApiError;
 import com.demo.data.api.NetworkManager;
 import com.demo.data.events.CollectFailureEvent;
 import com.demo.data.events.CollectSuccessEvent;
+import com.demo.data.model.request.CollectOrRedeemRequest;
 import com.demo.data.model.server.UserDetails;
 
 import org.greenrobot.eventbus.EventBus;
@@ -14,7 +15,7 @@ import android.content.res.Resources;
 
 import androidx.annotation.NonNull;
 
-public class CollectLoader implements LoyaltyLoader<String>, ApiCallback<UserDetails> {
+public class CollectLoader implements LoyaltyLoader<CollectOrRedeemRequest>, ApiCallback<UserDetails> {
     private final NetworkManager mNetworkManager;
     private final EventBus mEventBus;
     private final Resources mRes;
@@ -26,8 +27,8 @@ public class CollectLoader implements LoyaltyLoader<String>, ApiCallback<UserDet
     }
 
     @Override
-    public void requestData(String employeeId) {
-        mNetworkManager.collect(employeeId, this);
+    public void requestData(CollectOrRedeemRequest request) {
+        mNetworkManager.collect(request.getEmployeeId(), request.getShopName(), this);
     }
 
     @Override

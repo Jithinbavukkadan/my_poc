@@ -8,6 +8,7 @@ import com.demo.data.loaders.RedeemLoader;
 import com.demo.data.loaders.RegistrationLoader;
 import com.demo.data.loaders.TransactionsLoader;
 import com.demo.data.loaders.UserInfoLoader;
+import com.demo.data.model.request.CollectOrRedeemRequest;
 import com.demo.data.model.request.RegistrationRequest;
 
 public class LoaderModule {
@@ -24,11 +25,11 @@ public class LoaderModule {
         return new TransactionsLoader(networkManager(), EventBusModule.eventBus(), ApplicationModule.resources());
     }
 
-    public static LoyaltyLoader<String> collectsLoader() {
+    public static LoyaltyLoader<CollectOrRedeemRequest> collectsLoader() {
         return new CollectLoader(networkManager(), EventBusModule.eventBus(), ApplicationModule.resources());
     }
 
-    public static LoyaltyLoader<String> redeeemLoader() {
+    public static LoyaltyLoader<CollectOrRedeemRequest> redeeemLoader() {
         return new RedeemLoader(networkManager(), EventBusModule.eventBus(), ApplicationModule.resources());
     }
 

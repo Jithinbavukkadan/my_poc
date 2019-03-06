@@ -22,12 +22,12 @@ public interface ApiService {
     Call<UserDetails> register(@Body RegistrationRequest request);
 
     @Headers({ACCEPT_JSON})
-    @PUT("user/redeem/{employee_id}")
-    Call<UserDetails> redeem(@Path("employee_id") String employeeId);
+    @PUT("user/redeem/{employee_id}/{shop_name}")
+    Call<UserDetails> redeem(@Path("employee_id") String employeeId, @Path("shop_name") String shopName);
 
     @Headers({ACCEPT_JSON})
-    @PUT("user/collect/{employee_id}")
-    Call<UserDetails> collect(@Path("employee_id") String employeeId);
+    @PUT("user/collect/{employee_id}/{shop_name}")
+    Call<UserDetails> collect(@Path("employee_id") String employeeId, @Path("shop_name") String shopName);
 
     @Headers({ACCEPT_JSON})
     @GET("user/{employee_id}")

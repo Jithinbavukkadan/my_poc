@@ -59,13 +59,13 @@ public class LandingPresenter implements LandingMvpContract.Presenter {
     @Override
     public void collect(String shopName) {
         mView.showLoading();
-        mCollectOrRedeemOffer.collect(mPreferenceRepo.getEmployeeId());
+        mCollectOrRedeemOffer.collect(mPreferenceRepo.getEmployeeId(), shopName);
     }
 
     @Override
     public void redeem(String shopName) {
         mView.showLoading();
-        mCollectOrRedeemOffer.redeem(mPreferenceRepo.getEmployeeId());
+        mCollectOrRedeemOffer.redeem(mPreferenceRepo.getEmployeeId(), shopName);
     }
 
     @Override

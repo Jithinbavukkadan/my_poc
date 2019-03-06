@@ -10,9 +10,9 @@ public interface NetworkManager {
 
     public void register(RegistrationRequest registrationRequest, ApiCallback<UserDetails> apiCallback);
 
-    public void collect(String userId, ApiCallback<UserDetails> apiCallback);
+    public void collect(String userId, String shopName, ApiCallback<UserDetails> apiCallback);
 
-    public void redeem(String userId, ApiCallback<UserDetails> apiCallback);
+    public void redeem(String userId, String shopName, ApiCallback<UserDetails> apiCallback);
 
     public void getUserDetails(String userId, ApiCallback<UserDetails> apiCallback);
 
