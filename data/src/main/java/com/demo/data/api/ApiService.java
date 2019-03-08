@@ -38,6 +38,6 @@ public interface ApiService {
     Call<List<TransactionSingleEntity>> transactions(@Path("employee_id") String employeeId);
 
     @Headers({ACCEPT_JSON})
-    @GET("user/vouchers/{employee_id}")
+    @PUT("user/vouchers/{employee_id}")
     Call<UserDetails> redeemToVoucher(@Path("employee_id") String employeeId);
 }

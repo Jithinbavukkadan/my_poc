@@ -118,7 +118,7 @@ public class LandingActivity extends CustomFontActivity
             String[] bacodeData = mPresenter.processBarcodeData(scanResult.getContents());
             if (bacodeData.length > 1) {
                 final String type = bacodeData[0], shopName = bacodeData[1];
-                if (type.equalsIgnoreCase(TransactionSingleEntity.COLLECT)
+                if (type.equalsIgnoreCase(TransactionSingleEntity.REDEEM)
                         && Integer.parseInt(mHeaderView.getUserDetails().getPoints()) < 300) {
                     String message = "You don't have enough points to redeem";
                     showWarningDialog(message);

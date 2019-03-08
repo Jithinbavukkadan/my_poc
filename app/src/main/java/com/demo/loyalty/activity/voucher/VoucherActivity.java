@@ -12,6 +12,8 @@ import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,8 +24,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VoucherActivity extends CustomFontActivity implements VouchersMvpContract.View, Toolbar.OnMenuItemClickListener {
@@ -73,8 +77,14 @@ public class VoucherActivity extends CustomFontActivity implements VouchersMvpCo
 
         mPresenter = new VoucherPresenter(this);
 
+        mEntities = new ArrayList<>();
+        mAdapter = new VoucherAdapter(mEntities);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         loadVoucherInfo();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,14 +94,21 @@ public class VoucherActivity extends CustomFontActivity implements VouchersMvpCo
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+
         if (item.getItemId() == R.id.redeem_voucher) {
-            startRedeemToVoucher(new ConfirmationListener() {
-                @Override
-                public void confirm() {
-                    mPresenter.redeemToVoucher();
-                }
-            });
+            if (!mRepo.isRedeemedToVouchers() && mRepo.getTotalPoints() > 500) {
+                String message = "You need to have points below 500 to get vouchers";
+                showWarningDialog(message);
+            } else if (!mRepo.isRedeemedToVouchers()) {
+                startRedeemToVoucher(new ConfirmationListener() {
+                    @Override
+                    public void confirm() {
+                        mPresenter.redeemToVoucher();
+                    }
+                });
+            }
         }
+
         return false;
     }
 
@@ -158,12 +175,26 @@ public class VoucherActivity extends CustomFontActivity implements VouchersMvpCo
     }
 
     @Override
+    public void showWarningDialog(String message) {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).setTitle("iLoyalty")
+                .setMessage(message)
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        alertDialog.show();
+    }
+
+    @Override
     public void loadVoucherInfo() {
         mNoVoucher.setVisibility(View.GONE);
         if (mRepo.isRedeemedToVouchers()) {
             mEntities = VoucherEntity.getVouchersData();
             mRecyclerView.setVisibility(View.VISIBLE);
-            mAdapter = new VoucherAdapter(mEntities);
+            mAdapter.setEntities(mEntities);
             mAdapter.notifyDataSetChanged();
         } else {
             showNoVoucher();

@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class TransactionSingleEntity {
     public static final String COLLECT = "COLLECT";
+    public static final String VOUCHER = "VOUCHERS";
     public static final String REDEEM = "REDEEM";
 
     @SerializedName("id")
@@ -53,6 +54,8 @@ public class TransactionSingleEntity {
         String displayText = "";
         if (getTranstype().equalsIgnoreCase(COLLECT)) {
             displayText = getPoints() + "pts Collected from " + getLocation();
+        } else if (getTranstype().equalsIgnoreCase(VOUCHER)) {
+            displayText = "Points redeemed to vouchers";
         } else {
             displayText = getPoints() + "pts Redeemed from " + getLocation();
         }

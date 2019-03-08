@@ -24,6 +24,8 @@ public interface VouchersMvpContract {
 
         void startRedeemToVoucher(VoucherActivity.ConfirmationListener listener);
 
+        public void showWarningDialog(String message);
+
         void showNoVoucher();
 
         void loadVoucherInfo();
