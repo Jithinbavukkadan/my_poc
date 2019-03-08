@@ -11,6 +11,7 @@ import com.demo.loyalty.BarcodeCaptureActivity;
 import com.demo.loyalty.CustomFontActivity;
 import com.demo.loyalty.R;
 import com.demo.loyalty.activity.launch.LaunchActivity;
+import com.demo.loyalty.activity.voucher.VoucherActivity;
 import com.demo.loyalty.view.HeaderView;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 
@@ -74,6 +75,8 @@ public class LandingActivity extends CustomFontActivity
         mPresenter = new LandingPresenter(this);
     }
 
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -115,7 +118,12 @@ public class LandingActivity extends CustomFontActivity
             String[] bacodeData = mPresenter.processBarcodeData(scanResult.getContents());
             if (bacodeData.length > 1) {
                 final String type = bacodeData[0], shopName = bacodeData[1];
-                if (type.equalsIgnoreCase(TransactionSingleEntity.COLLECT) || type.equalsIgnoreCase(TransactionSingleEntity.REDEEM)) {
+                if (type.equalsIgnoreCase(TransactionSingleEntity.COLLECT)
+                        && Integer.parseInt(mHeaderView.getUserDetails().getPoints()) < 300) {
+                    String message = "You don't have enough points to redeem";
+                    showWarningDialog(message);
+                } else if (type.equalsIgnoreCase(TransactionSingleEntity.COLLECT) || type
+                        .equalsIgnoreCase(TransactionSingleEntity.REDEEM)) {
                     showConfirmationDialog(type, shopName, new ConfirmationListener() {
                         @Override
                         public void confirm() {
@@ -149,6 +157,8 @@ public class LandingActivity extends CustomFontActivity
 
         } else if (id == R.id.nav_logout) {
             mPresenter.logout();
+        } else if (id == R.id.nav_voucher) {
+            navigateToVouchers();
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -218,6 +228,12 @@ public class LandingActivity extends CustomFontActivity
     }
 
     @Override
+    public void navigateToVouchers() {
+        startActivity(new Intent(this, VoucherActivity.class));
+        finish();
+    }
+
+    @Override
     public void navigateToLaunchScreen() {
         startActivity(new Intent(this, LaunchActivity.class));
         finish();
@@ -238,6 +254,20 @@ public class LandingActivity extends CustomFontActivity
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         listener.confirm();
+                    }
+                })
+                .create();
+        alertDialog.show();
+    }
+
+    @Override
+    public void showWarningDialog(String message) {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).setTitle("iLoyalty")
+                .setMessage(message)
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                     }
                 })
                 .create();

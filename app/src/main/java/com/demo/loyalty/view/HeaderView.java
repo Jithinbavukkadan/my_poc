@@ -65,6 +65,9 @@ public class HeaderView extends FrameLayout {
         countAnimation(mPreferenceRepo.getTotalPoints(), Integer.parseInt(mUserDetails.getPoints()), mPoints);
     }
 
+
+
+
     private void countAnimation(int start, final int end, final TextView view) {
         ValueAnimator animator = ValueAnimator.ofInt(start, end);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {

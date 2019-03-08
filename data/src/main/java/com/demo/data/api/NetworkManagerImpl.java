@@ -38,6 +38,11 @@ public class NetworkManagerImpl implements NetworkManager {
         mApiService.transactions(userId).enqueue(getApiCallbackWrapper(apiCallback));
     }
 
+    @Override
+    public void redeemToVoucher(String userId, ApiCallback<UserDetails> apiCallback) {
+        mApiService.redeemToVoucher(userId).enqueue(getApiCallbackWrapper(apiCallback));
+    }
+
     private <T> ApiCallbackWrapper<T> getApiCallbackWrapper(ApiCallback<T> callback) {
         return new ApiCallbackWrapper<>(callback);
     }

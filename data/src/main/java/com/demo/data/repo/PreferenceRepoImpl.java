@@ -41,6 +41,16 @@ public class PreferenceRepoImpl implements PreferenceRepo {
     }
 
     @Override
+    public void setRedeemToVouchers(Boolean value) {
+        mContext.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE).edit().putBoolean(PREF_REDEEM_VOUCHER, value).apply();
+    }
+
+    @Override
+    public Boolean isRedeemedToVouchers() {
+        return mContext.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE).getBoolean(PREF_REDEEM_VOUCHER, false);
+    }
+
+    @Override
     public void reset() {
         mContext.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE).edit().clear().commit();
     }

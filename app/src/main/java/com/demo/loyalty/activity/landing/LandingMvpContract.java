@@ -40,6 +40,8 @@ public interface LandingMvpContract {
 
         void navigateToCollectOrRedeem();
 
+        void navigateToVouchers();
+
         void navigateToLaunchScreen();
 
         void initializeNavigationDrawer();
@@ -48,6 +50,7 @@ public interface LandingMvpContract {
 
         void showConfirmationDialog(String type,String shopName,LandingActivity.ConfirmationListener listener);
 
+        void showWarningDialog(String message);
     }
 
     interface Presenter {

@@ -18,4 +18,6 @@ public interface NetworkManager {
 
     public void getTransactions(String userId, ApiCallback<List<TransactionSingleEntity>> apiCallback);
 
+    public void redeemToVoucher(String userId, ApiCallback<UserDetails> apiCallback);
+
 }

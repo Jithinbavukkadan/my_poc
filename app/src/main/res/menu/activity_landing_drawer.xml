@@ -9,6 +9,10 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Collect or Redeem" />
         <item
+            android:id="@+id/nav_voucher"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Voucher" />
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_menu_manage"
             android:title="Logout" />
