@@ -29,12 +29,14 @@ public class VoucherPresenter implements VouchersMvpContract.Presenter {
 
     @Override
     public void redeemToVoucher() {
+        view.showLoading();
         model.redeemToVoucher(mPreferenceRepo.getEmployeeId());
     }
 
     @Subscribe
     @Override
     public void onVoucherSuccess(VouchersSuccessEvent event) {
+        view.hideLoading();
         mPreferenceRepo.setTotalPoints(Integer.parseInt(event.getEntity().getPoints()));
         mPreferenceRepo.setRedeemToVouchers(true);
         view.loadVoucherInfo();
@@ -42,9 +44,9 @@ public class VoucherPresenter implements VouchersMvpContract.Presenter {
 
     @Subscribe
     @Override
-    public void onVoucherFailure(VouchersFailureEvent event)
-    {
+    public void onVoucherFailure(VouchersFailureEvent event) {
         view.showError(event.getApiError());
+        view.hideLoading();
     }
 
     @Override

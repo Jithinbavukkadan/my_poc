@@ -76,7 +76,6 @@ public class LandingActivity extends CustomFontActivity
     }
 
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -250,6 +249,12 @@ public class LandingActivity extends CustomFontActivity
 
         AlertDialog alertDialog = new AlertDialog.Builder(this).setTitle(title)
                 .setMessage(message)
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
                 .setPositiveButton(buttonTxt, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

@@ -29,11 +29,11 @@ public class VoucherEntity {
     public static List<VoucherEntity> getVouchersData() {
         List<VoucherEntity> list = new ArrayList<VoucherEntity>() {
             {
-                add(new VoucherEntity("Title One",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                        "QTD66D"));
-                add(new VoucherEntity("Title Two",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                add(new VoucherEntity("Offer code",
+                        "Avail 20% off on buying Denim jeans at Fashion store",
+                        "QTD66L"));
+                add(new VoucherEntity("Offer code",
+                        "Avail 20% off on buying groceries at Grocery store",
                         "QTD66D"));
 
             }

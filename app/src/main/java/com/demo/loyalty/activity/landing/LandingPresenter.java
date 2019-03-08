@@ -78,6 +78,7 @@ public class LandingPresenter implements LandingMvpContract.Presenter {
     @Override
     public void onUserInfoSuccessEvent(UserInfoSuccessEvent event) {
         mView.updateUserDetails(event.getEntity());
+        mPreferenceRepo.setTotalPoints(Integer.parseInt(event.getEntity().getPoints()));
     }
 
     @Subscribe

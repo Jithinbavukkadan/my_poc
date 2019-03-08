@@ -16,10 +16,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="?attr/actionBarSize"></androidx.recyclerview.widget.RecyclerView>
 
-    <include
-        android:id="@+id/progress_bar"
-        layout="@layout/layout_progress_bar"
-        android:visibility="gone"></include>
 
     <include
         android:id="@+id/no_voucher"
@@ -32,4 +28,8 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/lightblue_a_200" />
 
+    <include
+        android:id="@+id/progress_bar"
+        layout="@layout/layout_progress_bar"
+        android:visibility="gone"></include>
 </FrameLayout>
