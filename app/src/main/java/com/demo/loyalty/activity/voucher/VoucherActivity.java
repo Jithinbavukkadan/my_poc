@@ -159,11 +159,17 @@ public class VoucherActivity extends CustomFontActivity implements VouchersMvpCo
     @Override
     public void startRedeemToVoucher(ConfirmationListener listener) {
         CharSequence title = "Redeem to vouchers";
-        CharSequence buttonTxt = "Redeem";
-        CharSequence message = "Do you want to redeem " + mRepo.getTotalPoints() + " points to 2 vouchers ";
+        CharSequence buttonTxt = "Yes";
+        CharSequence message = "Do you want to redeem " + (mRepo.getTotalPoints() / 2) + " points into 2 vouchers ";
 
         AlertDialog alertDialog = new AlertDialog.Builder(this).setTitle(title)
                 .setMessage(message)
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
                 .setPositiveButton(buttonTxt, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
