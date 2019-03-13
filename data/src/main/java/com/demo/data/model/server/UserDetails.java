@@ -15,6 +15,12 @@ public class UserDetails {
     @SerializedName("points")
     private String mPoints;
 
+    @SerializedName("totalcollect")
+    private String mTotalcollect;
+
+    @SerializedName("totalredeem")
+    private String mTotalredeem;
+
     public String getEmployeeid() {
         return mEmployeeid;
     }
@@ -29,5 +35,13 @@ public class UserDetails {
 
     public String getPoints() {
         return mPoints;
+    }
+
+    public String getTotalcollect() {
+        return mTotalcollect;
+    }
+
+    public String getTotalredeem() {
+        return mTotalredeem;
     }
 }

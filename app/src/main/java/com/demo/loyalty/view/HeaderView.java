@@ -31,6 +31,9 @@ public class HeaderView extends FrameLayout {
     @BindView(R.id.points_tv)
     TextView mPoints;
 
+    @BindView(R.id.collect_or_redeem_points)
+    CollectOrRedeemPointsView mCollectOrRedeemPointsView;
+
     public HeaderView(@androidx.annotation.NonNull Context context) {
         this(context, null);
     }
@@ -63,9 +66,8 @@ public class HeaderView extends FrameLayout {
     public void setUserDetails(UserDetails userDetails) {
         mUserDetails = userDetails;
         countAnimation(mPreferenceRepo.getTotalPoints(), Integer.parseInt(mUserDetails.getPoints()), mPoints);
+        mCollectOrRedeemPointsView.setUserDetails(userDetails);
     }
-
-
 
 
     private void countAnimation(int start, final int end, final TextView view) {

@@ -1,5 +1,6 @@
 package com.demo.loyalty.activity.landing;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -12,6 +13,7 @@ import com.demo.loyalty.CustomFontActivity;
 import com.demo.loyalty.R;
 import com.demo.loyalty.activity.launch.LaunchActivity;
 import com.demo.loyalty.activity.voucher.VoucherActivity;
+import com.demo.loyalty.view.CollectOrRedeemPointsView;
 import com.demo.loyalty.view.HeaderView;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 
@@ -60,6 +62,9 @@ public class LandingActivity extends CustomFontActivity
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
 
+    @BindView(R.id.fab_scan)
+    FloatingActionButton mScanFab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +78,19 @@ public class LandingActivity extends CustomFontActivity
         initializeView();
 
         mPresenter = new LandingPresenter(this);
+
+        mScanFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(LandingActivity.this, Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat
+                            .requestPermissions(LandingActivity.this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+                } else {
+                    navigateToCollectOrRedeem();
+                }
+            }
+        });
     }
 
 

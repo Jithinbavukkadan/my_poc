@@ -1,5 +1,7 @@
 package com.demo.data.repo;
 
+import com.demo.data.model.server.UserDetails;
+
 import android.content.Context;
 
 public class PreferenceRepoImpl implements PreferenceRepo {
@@ -11,8 +13,38 @@ public class PreferenceRepoImpl implements PreferenceRepo {
     }
 
     @Override
+    public void setUserDetails(UserDetails userDetails) {
+        setCollectedPoints(Integer.parseInt(userDetails.getTotalcollect()));
+        setRedeemedPoints(Integer.parseInt(userDetails.getTotalredeem()));
+        setTotalPoints(Integer.parseInt(userDetails.getPoints()));
+        setEmployeeId(userDetails.getEmployeeid());
+        setNickName(userDetails.getNickname());
+    }
+
+    @Override
     public int getTotalPoints() {
         return mContext.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE).getInt(PREF_TOTAL_POINTS, 0);
+    }
+
+
+    @Override
+    public int getCollectedPoints() {
+        return mContext.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE).getInt(PREF_COLLECTED_POINTS, 0);
+    }
+
+    @Override
+    public void setCollectedPoints(int totPoints) {
+        mContext.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE).edit().putInt(PREF_COLLECTED_POINTS, totPoints).apply();
+    }
+
+    @Override
+    public int getRedeemedPoints() {
+        return mContext.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE).getInt(PREF_REDEEMED_POINTS, 0);
+    }
+
+    @Override
+    public void setRedeemedPoints(int totPoints) {
+        mContext.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE).edit().putInt(PREF_REDEEMED_POINTS, totPoints).apply();
     }
 
     @Override

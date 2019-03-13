@@ -2,6 +2,7 @@ package com.demo.loyalty.activity.landing;
 
 import com.demo.data.model.server.TransactionSingleEntity;
 import com.demo.loyalty.R;
+import com.demo.loyalty.view.CollectOrRedeemPointsView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -64,12 +65,22 @@ public class TransactionAdapter extends BaseAdapter {
         TransactionSingleEntity entity = mTransactions.get(position);
         String displayText = entity.toString();
         holder.mTransactionDetails.setText(displayText);
+
+        if (entity.getTranstype().equalsIgnoreCase(TransactionSingleEntity.COLLECT)) {
+            holder.mTransactionIndicator.setBackground(parent.getContext().getDrawable(R.drawable.transaction_collect_indicator));
+        } else {
+            holder.mTransactionIndicator.setBackground(parent.getContext().getDrawable(R.drawable.transaction_redeem_indicator));
+        }
         return newView;
     }
 
     static class ViewHolder {
         @BindView(R.id.transaction_details)
         TextView mTransactionDetails;
+
+        @BindView(R.id.transaction_indicator)
+        View mTransactionIndicator;
+
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }

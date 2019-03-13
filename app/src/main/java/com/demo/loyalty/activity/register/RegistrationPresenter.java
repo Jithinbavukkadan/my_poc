@@ -38,7 +38,7 @@ public class RegistrationPresenter implements RegisterMvpContract.Presenter {
             view.showLoading();
             model.doRegister(email, employeeId, nickName);
         } else {
-            view.showError("Invalid smail address");
+            view.showError("Invalid email address");
         }
     }
 
@@ -48,9 +48,7 @@ public class RegistrationPresenter implements RegisterMvpContract.Presenter {
         view.hideLoading();
         UserDetails userDetails = event.getEntity();
         if (userDetails != null) {
-            mPreferenceRepo.setNickName(userDetails.getNickname());
-            mPreferenceRepo.setEmployeeId(userDetails.getEmployeeid());
-            mPreferenceRepo.setTotalPoints(Integer.parseInt(userDetails.getPoints()));
+            mPreferenceRepo.setUserDetails(userDetails);
             view.navigateToHomeScreen();
         }
     }
